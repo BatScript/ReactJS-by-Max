@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+  background-color: #2a0944;
+  color: aliceblue;
+  transition: 0.3s;
+}
+
+body {
+  margin: 0;
+}

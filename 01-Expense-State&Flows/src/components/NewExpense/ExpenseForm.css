@@ -1,0 +1,24 @@
+.expenseForm {
+  text-align: center;
+  background-color: darkslateblue;
+  width: 70%;
+  margin: 30px auto;
+  padding: 2%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.expenseForm > button {
+  margin: 2% 30%;
+  background-color: midnightblue;
+  border-style: solid;
+  color: aliceblue;
+  padding: 2px;
+}
+
+input {
+  width: 50%;
+  margin: auto;
+  padding: 10px;
+}
