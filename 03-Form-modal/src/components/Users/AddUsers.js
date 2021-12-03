@@ -1,34 +1,40 @@
 import styles from "./AddUsers.module.css";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Buttons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ErrorModal from "../UI/ErrorModal/ErrorModal";
 const AddUser = (props) => {
-  const [inputvalue, inputchanger] = useState({
-    name: "",
-    age: "",
-  });
+  const nameChangeRef = useRef();
+  const ageChangeRef = useRef();
+
+  // const [inputvalue, inputchanger] = useState({
+  //   name: "",
+  //   age: "",
+  // });
 
   const [error, setError] = useState();
 
   const onSubmitHandler = (event) => {
+    console.log();
     event.preventDefault(event);
     if (
-      inputvalue.name.trim().length === 0 ||
-      inputvalue.age.trim().length === 0
+      nameChangeRef.current.value.trim().length === 0 ||
+      ageChangeRef.current.value.trim().length === 0
     ) {
       setError({
         title: "Invalid Input",
         message: "Enter Correct Value",
       });
     }
-    if (inputvalue.age < 1) {
+    if (ageChangeRef.current.value < 1) {
       setError({
         title: "Invalid Input",
         message: "Age must be > 0",
       });
     } else {
-      props.newUser(inputvalue.name, inputvalue.age);
+      props.newUser(nameChangeRef.current.value, ageChangeRef.current.value);
+      nameChangeRef.current.value = "";
+      ageChangeRef.current.value = "";
       // console.log(inputvalue.name, inputvalue.age);
     }
   };
@@ -37,13 +43,13 @@ const AddUser = (props) => {
     setError(null);
   };
 
-  const namechangehandler = (event) => {
-    inputchanger({ ...inputvalue, [event.target.name]: event.target.value });
-  };
+  // const namechangehandler = (event) => {
+  //   inputchanger({ ...inputvalue, [event.target.name]: event.target.value });
+  // };
 
-  const agechangehandler = (event) => {
-    inputchanger({ ...inputvalue, [event.target.name]: event.target.value });
-  };
+  // const agechangehandler = (event) => {
+  //   inputchanger({ ...inputvalue, [event.target.name]: event.target.value });
+  // };
   return (
     <div>
       {error && (
@@ -56,9 +62,9 @@ const AddUser = (props) => {
       <Card>
         <form className={styles.form} onSubmit={onSubmitHandler}>
           <label htmlFor="email">Name</label>
-          <input name="name" type="text" onChange={namechangehandler} />
+          <input ref={nameChangeRef} type="text" />
           <label htmlFor="email">Age</label>
-          <input name="age" type="text" onChange={agechangehandler} />
+          <input ref={ageChangeRef} type="text" />
           <Button buttonmessage="Add" onClick={onSubmitHandler} />
         </form>
       </Card>
